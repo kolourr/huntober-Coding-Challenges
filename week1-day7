@@ -1,0 +1,42 @@
+// The Challenge - Day 7
+// Oooh, yeah! Here it is, the final function you'll need in your string-decoding arsenal this week. Today's challenge might not be too trying after all the others, but you never know!
+
+// Today you'll need to create a function that swaps each letter of the alphabet for its opposite. A letter's opposite is one that, if the alphabet were flipped Z-A, would be the same number of letters in, and which would also have the opposite case.
+
+// 'A'  // first letter of the alphabet, uppercase
+// 'z'  // last letter of the alphabet, lowercase
+
+// 'p'  // 16th letter of the alphabet, lowercase
+// 'K'  // 16th letter from *end* of alphabet, uppercase
+
+// 'vCZNKOV: 0 MFNYVI LI KFMXGFZGRLM XSZMTVH'
+// // function replaces letters with opposites
+// 'Example: 0 number or punctuation changes'
+
+
+function swapMe(str){
+    let obj = {
+        'A': 'z',        'B': 'y',        'C': 'x',        'D': 'w',        'E': 'v',        'F': 'u',        'G': 't',        'H': 's',        'I': 'r',        'J': 'q',        'K': 'p',        'L': 'o',        'M': 'n',        'N': 'm',        'O': 'l',        'P': 'k',        'Q': 'j',        'R': 'i',        'S': 'h',        'T': 'g',        'U': 'f',        'V': 'e',        'W': 'd',        'X': 'c',        'Y': 'b',        'Z': 'a',
+        'a': 'Z',        'b': 'Y',        'c': 'X',        'd': 'W',        'e': 'V',        'f': 'U',        'g': 'T',        'h': 'S',        'i': 'R',        'j': 'Q',        'k': 'P',
+        'l': 'O',        'm': 'N',        'n': 'M',        'o': 'L',        'p': 'K',        'q': 'J',        'r': 'I',        's': 'H',        't': 'G',        'u': 'E',        'v': 'E',
+        'w': 'D',        'x': 'C',        'y': 'B',        'z': 'A'
+    }
+
+    let arr = str.split("")
+
+    let newStr = ''
+    for(let item of arr){
+        if(obj.hasOwnProperty(item)){
+            newStr += obj[item]
+        }
+        else{
+            newStr += item
+        }
+
+    }
+    return newStr
+
+}
+
+
+console.log(swapMe('vCZNKOV: 0 MFNYVI LI KFMXGFZGRLM XSZMTVH'))

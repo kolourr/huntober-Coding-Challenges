@@ -16,14 +16,17 @@
 // Must not contain a capital 'S' (definitely too strict. What does S even have to do with cat puns?)
 // Send me a DM of the puns that made the cut on Twitter, and go ahead and save the final count to use tomorrow. Thanks!
 function editString(str) {
-    let preTrim = str.split(",").map(elem => elem.trim())
-    let dogs = preTrim.filter(elem => elem.includes('bark') || elem.includes('Bark') || elem.includes('dog') || elem.includes('Dog') || elem.includes('bone') || elem.includes('Bone'))
-    let trolling = preTrim.filter(elem => dogs.indexOf(elem) === -1)
-    let fiveMultiple = trolling.filter(elem =>  elem.length % 5 !== 0 )
-    let sumCharCodes = fiveMultiple.filter(elem => (elem.charCodeAt(0) + elem.charCodeAt(elem.length - 1))  % 2  !== 0)
-    let notMiddleE = sumCharCodes.filter(elem => elem.charAt((Math.floor(elem.length / 2) + 1)) !== 'e' )
-    let evenLowerCase = notMiddleE.filter(elem => {
-        let arr = elem.replaceAll(" ", '')
+    let preTrim = str.split(",").filter(elem => elem === elem.trim())
+    let dog = preTrim.filter(elem => !elem.toLowerCase().includes('dog') )
+    let bark = dog.filter(elem => !elem.toLowerCase().includes('bark') )
+    let bone = bark.filter(elem => !elem.toLowerCase().includes('bone') )
+    let fiveMultiple = bone.filter(elem =>  elem.length % 5 != 0 )
+    let sumCharCodes = fiveMultiple.filter(elem => (elem.charCodeAt(0) + elem.charCodeAt(elem.length - 1))  % 2  != 0)
+    let notMiddleE = sumCharCodes.filter(elem => elem[Math.ceil(elem.length/2)] != 'e' )
+    let noS = notMiddleE.filter(elem => !elem.includes("S") )
+
+    let evenLowerCase = noS.filter(elem => {
+        let arr = elem.replace(/[^A-Za-z0-9-]/gi, "")
         let count = 0
         for(let i=0; i<arr.length; i++){
             if(arr[i].toLowerCase() === arr[i]){
@@ -34,7 +37,8 @@ function editString(str) {
             return elem
         }
     })
-    let twoUpperCase = evenLowerCase.filter(elem => {
+
+    return evenLowerCase.filter(elem => {
         let arr = elem.replaceAll(" ", '')
         let count = 0
         for(let i=0; i<arr.length; i++){
@@ -47,27 +51,8 @@ function editString(str) {
         }
     })
 
-    let noCapitalS = twoUpperCase.filter(elem => {
-        let arr = elem.replaceAll(" ", '')
-        let count = 0
-        for(let i=0; i<arr.length; i++){
-            if(arr[i] === 'S'){
-                count++
-            }
-        }
-        if(count === 0){
-            return elem
-        }
-    })
-
-    return noCapitalS
-
- }
-
-
-
+}
 
     console.log(editString("The Pawshank Redemption,Caturday Night Live,Only Meworders in the Building,I Love Mewcy, Mewsummer Meowders,The Golden Purrs, Purrlandia ,Meowpardy, Meowstery Science Theater: Purrthousand, Amewican Idol,Dog City,Doctor Mew , The Meowing Fed,Mew Peter,The Vicar of Dogley, Kittens,Meownton Abbey,Pets and the Kitty,Dogis and Bonehead,Pawlty Meowers ,The Meowpet Show,Barkos,The Catbert Purrport,The Pawffice,The Dogford Files, Battlestar Catlactica,Catlumbo,SpongeDog Squarepants,NYPD Mew ,Fluffy the Meowpire Purrer,The Inbemewners,Meowder She Wrote,Paw & Order,30 Dog, Pawvatar: The Last Meowbender,The Pawnight Show,Arrested Dogvelopment,Furiends,Mewie,Curb Your Dogthusiasm,Teenage Mewtant Ninja Turtles,Phineas and Purrb,Paw Trek, Paw Trek: The Next Mewination, Twin Mewks, *C*A*T*S*,DogTales, Game of Bones, House of the Meowgon,The Purrlight Zone,Breaking Bone,The Meowre,The Dogpranos,The Rings of Meower, The KIT Crowd,Strangepaw Things ,Catman: The Animeowted Series,Meowter Call Saul,Mewgerton ,Obark,Mewphoria,La Casa de Pawpel,Rick & Meowty,Amewican Purror Story, Mewcifer,PawndaVision,Dogxter,The Meowndalorian, Dog Lasso,Bark,Meowdern Pawmily , Meowtlander,Bone Mirror,Barks and Recreation,How to Get Away with Meowder,Boneland ,Meowther Ted,Mewtopia,Mewey,The Mewkie Meowse Doghouse,Mewster Rogers' Neighborhood"))
-
 
 
