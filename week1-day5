@@ -16,51 +16,58 @@
 // Must not contain a capital 'S' (definitely too strict. What does S even have to do with cat puns?)
 // Send me a DM of the puns that made the cut on Twitter, and go ahead and save the final count to use tomorrow. Thanks!
 function editString(str) {
-    let preTrim = str.trim()
-    let trolling = preTrim.replace(/dog\w+|Dog\w+|bark\w+|Bark\w+|bone\w+|Bone\w+/gi, '')
-    let arr = trolling.split(",")
-    let newArr = []
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i].length % 5 !== 0) {
-            let first = arr[i].charCodeAt(arr[i][0])
-            let last = arr[i].charCodeAt(arr[i][arr[i].length - 1])
-
-            console.log((first + last) % 2 !== 0)
-            // if ((first + last) % 2 !== 0) {
-            //     let middle = arr[Math.ceil(arr[i].length / 2) + 1]
-            //     if (middle !== 'e') {
-            //         let newArr = arr[i].split("")
-            //         let count = 0
-            //         for (let j = 0; j < newArr.length; i++) {
-            //             if (newArr[j].toLowerCase() === newArr[j]) {
-            //                 count++
-            //             }
-            //         }
-            //         if (count % 2 === 0) {
-            //             let newArr2 = arr[i].split("")
-            //             let count2 = 0
-            //             for (let k = 0; k < newArr2.length; i++) {
-            //                 if (newArr2[k].toUpperCase() === newArr2[k]) {
-            //                     count2++
-            //                 }
-            //             }
-            //         }
-            //         if (count2 >= 2) {
-            //             let capitalS = arr[i].includes('S')
-            //             if (!capitalS) {
-            //                 newArr.push(arr[i])
-            //             }
-            //         }
-            //     }
-            // }
+    let preTrim = str.split(",").map(elem => elem.trim())
+    let dogs = preTrim.filter(elem => elem.includes('bark') || elem.includes('Bark') || elem.includes('dog') || elem.includes('Dog') || elem.includes('bone') || elem.includes('Bone'))
+    let trolling = preTrim.filter(elem => dogs.indexOf(elem) === -1)
+    let fiveMultiple = trolling.filter(elem =>  elem.length % 5 !== 0 )
+    let sumCharCodes = fiveMultiple.filter(elem => (elem.charCodeAt(0) + elem.charCodeAt(elem.length - 1))  % 2  !== 0)
+    let notMiddleE = sumCharCodes.filter(elem => elem.charAt((Math.floor(elem.length / 2) + 1)) !== 'e' )
+    let evenLowerCase = notMiddleE.filter(elem => {
+        let arr = elem.replaceAll(" ", '')
+        let count = 0
+        for(let i=0; i<arr.length; i++){
+            if(arr[i].toLowerCase() === arr[i]){
+                count++
+            }
         }
-    }
+        if(count % 2 === 0){
+            return elem
+        }
+    })
+    let twoUpperCase = evenLowerCase.filter(elem => {
+        let arr = elem.replaceAll(" ", '')
+        let count = 0
+        for(let i=0; i<arr.length; i++){
+            if(arr[i].toUpperCase() === arr[i]){
+                count++
+            }
+        }
+        if(count >= 2){
+            return elem
+        }
+    })
 
-    // return newArr
+    let noCapitalS = twoUpperCase.filter(elem => {
+        let arr = elem.replaceAll(" ", '')
+        let count = 0
+        for(let i=0; i<arr.length; i++){
+            if(arr[i] === 'S'){
+                count++
+            }
+        }
+        if(count === 0){
+            return elem
+        }
+    })
 
-}
+    return noCapitalS
+
+ }
 
 
 
 
     console.log(editString("The Pawshank Redemption,Caturday Night Live,Only Meworders in the Building,I Love Mewcy, Mewsummer Meowders,The Golden Purrs, Purrlandia ,Meowpardy, Meowstery Science Theater: Purrthousand, Amewican Idol,Dog City,Doctor Mew , The Meowing Fed,Mew Peter,The Vicar of Dogley, Kittens,Meownton Abbey,Pets and the Kitty,Dogis and Bonehead,Pawlty Meowers ,The Meowpet Show,Barkos,The Catbert Purrport,The Pawffice,The Dogford Files, Battlestar Catlactica,Catlumbo,SpongeDog Squarepants,NYPD Mew ,Fluffy the Meowpire Purrer,The Inbemewners,Meowder She Wrote,Paw & Order,30 Dog, Pawvatar: The Last Meowbender,The Pawnight Show,Arrested Dogvelopment,Furiends,Mewie,Curb Your Dogthusiasm,Teenage Mewtant Ninja Turtles,Phineas and Purrb,Paw Trek, Paw Trek: The Next Mewination, Twin Mewks, *C*A*T*S*,DogTales, Game of Bones, House of the Meowgon,The Purrlight Zone,Breaking Bone,The Meowre,The Dogpranos,The Rings of Meower, The KIT Crowd,Strangepaw Things ,Catman: The Animeowted Series,Meowter Call Saul,Mewgerton ,Obark,Mewphoria,La Casa de Pawpel,Rick & Meowty,Amewican Purror Story, Mewcifer,PawndaVision,Dogxter,The Meowndalorian, Dog Lasso,Bark,Meowdern Pawmily , Meowtlander,Bone Mirror,Barks and Recreation,How to Get Away with Meowder,Boneland ,Meowther Ted,Mewtopia,Mewey,The Mewkie Meowse Doghouse,Mewster Rogers' Neighborhood"))
+
+
+

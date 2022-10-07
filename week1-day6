@@ -25,3 +25,18 @@
 
 // Here's the encrypted string for the week, enjoy!
 // const encryptedMsg = "e!!Igv)t5lltBcvbdeDH3dVw!OOtI#Aa.ZMDu7WYpP^VVjDc4I50iv#ylhgmQfs"
+
+
+function removeX(str, num){
+
+    let arr = str.split("")
+    let newStr =  arr.filter((elem, index) => (index + 1) % num !== 0).join("")
+    return newStr
+
+
+}
+
+console.log(removeX("Thies its H alltowe!en!? Th#is Tis GHalolowmeen$!", 4))
+console.log(removeX("The LBachyelor^ is ma tehrrib le tpelev!isioOn sh8ow.", 5))
+
+
