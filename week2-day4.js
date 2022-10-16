@@ -73,9 +73,7 @@ function movedown(arr, val){
         arr[rowIndex[0] + 1][rowIndex[1]] = val
 
     }
-    return arr
-
-}
+    return arr}
 
 
 
